@@ -27,17 +27,16 @@
             user-select: none;
         }
 
-        /* Основной контейнер */
         .main-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Всё по левому краю */
-            width: 90vw; /* Увеличена ширина */
-            max-width: 450px; /* Фото теперь больше */
+            align-items: flex-start;
+            width: 90vw;
+            max-width: 450px;
         }
 
         #typewriter {
-            font-size: 26px; /* Чуть крупнее под размер фото */
+            font-size: 26px;
             font-weight: bold;
             border-right: 2px solid black;
             padding-right: 3px;
@@ -61,19 +60,18 @@
             display: block;
         }
 
-        /* Блок кнопок и почты */
         .links-container {
             width: 100%;
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Почта слева */
+            align-items: flex-start;
             gap: 12px;
         }
 
         .social-row {
             display: flex;
             gap: 12px;
-            justify-content: flex-start; /* Кнопки слева */
+            justify-content: flex-start;
             flex-wrap: wrap;
         }
 
@@ -81,15 +79,21 @@
             text-decoration: none;
             color: black;
             font-family: 'CustomFont1', sans-serif;
+            font-size: 14px;
             transition: opacity 0.2s;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
+            display: inline-block;
         }
 
-        .social-link { font-size: 14px; }
-        .email-link { font-size: 14px; margin-top: 5px; }
+        /* Исправление для кнопки Discord: резервируем место под текст */
+        #discord-btn {
+            min-width: 65px; /* Резервируем место, чтобы текст не прыгал */
+            text-align: left;
+        }
 
         .social-link:hover, .email-link:hover { opacity: 0.5; }
+        .email-link { margin-top: 5px; }
 
         /* Анимация шрифтов лого */
         .f1 { font-family: 'CustomFont1', sans-serif; }
@@ -143,12 +147,18 @@
         }
 
         const discordBtn = document.getElementById('discord-btn');
-        discordBtn.addEventListener('click', function(e) {
+        // Используем 'pointerdown' для мгновенного срабатывания на телефонах
+        discordBtn.addEventListener('pointerdown', function(e) {
             e.preventDefault();
-            navigator.clipboard.writeText("dnka").then(() => {
-                const originalText = discordBtn.textContent;
+            const copyText = "dnka";
+            
+            navigator.clipboard.writeText(copyText).then(() => {
+                const originalText = "discord";
                 discordBtn.textContent = "copied!";
-                setTimeout(() => { discordBtn.textContent = originalText; }, 1000);
+                
+                setTimeout(() => {
+                    discordBtn.textContent = originalText;
+                }, 1000);
             });
         });
 
