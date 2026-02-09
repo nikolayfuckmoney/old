@@ -2,101 +2,140 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>DNKA Custom Fonts</title>
+    <title>dnka profile</title>
     <style>
-        /* Подключаем твои файлы шрифтов */
-        @font-face {
-            font-family: 'CustomFont1';
-            src: url('1.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'CustomFont2';
-            src: url('2.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'CustomFont3';
-            src: url('3.ttf') format('truetype');
-        }
+        /* Подключение шрифтов */
+        @font-face { font-family: 'CustomFont1'; src: url('1.ttf') format('truetype'); }
+        @font-face { font-family: 'CustomFont2'; src: url('2.ttf') format('truetype'); }
+        @font-face { font-family: 'CustomFont3'; src: url('3.ttf') format('truetype'); }
 
         body {
             background-color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Распределяет верх, центр и низ */
+            align-items: center;
+            font-family: sans-serif;
+        }
+
+        /* Верхняя часть (Аватарка/Лого) */
+        header {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #typewriter {
+            font-size: 24px; /* Уменьшенный размер для лого */
+            font-weight: bold;
+            border-right: 2px solid black;
+            padding-right: 4px;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        /* Центр (Фото) */
+        main {
+            flex-grow: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
         }
 
-        #typewriter {
-            font-size: 100px;
-            font-weight: normal;
-            border-right: 5px solid black;
-            padding-right: 8px;
-            white-space: nowrap;
-            /* Плавный переход при смене шрифта (опционально) */
-            transition: font-family 0.2s ease;
+        .central-image {
+            max-width: 80%;
+            max-height: 60vh;
+            object-fit: contain;
         }
 
-        /* Классы для переключения через JS */
-        .font-style-1 { font-family: 'CustomFont1', sans-serif; }
-        .font-style-2 { font-family: 'CustomFont2', serif; }
-        .font-style-3 { font-family: 'CustomFont3', monospace; }
+        /* Низ (Кнопки-ссылки) */
+        footer {
+            padding-bottom: 40px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-        @keyframes blink {
-            50% { border-color: transparent; }
+        .social-link {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            font-weight: 500;
+            transition: opacity 0.3s;
         }
-        #typewriter {
-            animation: blink 0.7s step-end infinite;
+
+        .social-link:hover {
+            opacity: 0.6;
         }
+
+        /* Классы шрифтов для анимации лого */
+        .f1 { font-family: 'CustomFont1', sans-serif; }
+        .f2 { font-family: 'CustomFont2', serif; }
+        .f3 { font-family: 'CustomFont3', monospace; }
+
+        @keyframes blink { 50% { border-color: transparent; } }
+        #typewriter { animation: blink 0.7s step-end infinite; }
     </style>
 </head>
 <body>
 
-    <div id="typewriter" class="font-style-1"></div>
+    <header>
+        <div id="typewriter" class="f1"></div>
+    </header>
+
+    <main>
+        <img src="1.png" alt="photo" class="central-image">
+    </main>
+
+    <footer>
+        <a href="#" class="social-link">inst</a>
+        <a href="#" class="social-link">telegram</a>
+        <a href="#" class="social-link">discord</a>
+        <a href="#" class="social-link">twitch</a>
+        <a href="#" class="social-link">tiktok</a>
+    </footer>
 
     <script>
         const text = "dnka";
         const typewriter = document.getElementById('typewriter');
-        const fontClasses = ['font-style-1', 'font-style-2', 'font-style-3'];
+        const fontClasses = ['f1', 'f2', 'f3'];
         
         let fontIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
         let typeSpeed = 150;
 
-        function animate() {
-            // Применяем текущий шрифт
+        function animateLogo() {
             typewriter.className = fontClasses[fontIndex];
-
-            const currentVisible = text.substring(0, charIndex);
-            typewriter.textContent = currentVisible;
+            typewriter.textContent = text.substring(0, charIndex);
 
             if (!isDeleting) {
                 charIndex++;
-                typeSpeed = 200; // Скорость печати
+                if (charIndex > text.length) {
+                    isDeleting = true;
+                    typeSpeed = 1500; // Пауза когда слово напечатано
+                } else {
+                    typeSpeed = 150;
+                }
             } else {
                 charIndex--;
-                typeSpeed = 100; // Скорость удаления
+                if (charIndex < 0) {
+                    isDeleting = false;
+                    charIndex = 0;
+                    fontIndex = (fontIndex + 1) % fontClasses.length;
+                    typeSpeed = 500; // Пауза перед сменой шрифта
+                } else {
+                    typeSpeed = 100;
+                }
             }
-
-            // Если слово напечатано полностью
-            if (!isDeleting && charIndex > text.length) {
-                isDeleting = true;
-                typeSpeed = 1200; // Пауза в конце слова
-            } 
-            // Если слово удалено полностью
-            else if (isDeleting && charIndex < 0) {
-                isDeleting = false;
-                charIndex = 0;
-                // Переходим к следующему шрифту
-                fontIndex = (fontIndex + 1) % fontClasses.length;
-                typeSpeed = 500;
-            }
-
-            setTimeout(animate, typeSpeed);
+            setTimeout(animateLogo, typeSpeed);
         }
 
-        document.addEventListener('DOMContentLoaded', animate);
+        window.onload = animateLogo;
     </script>
 </body>
 </html>
