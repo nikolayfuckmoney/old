@@ -3,127 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dnka profile</title>
+    <title>dnka</title>
     <style>
-        /* Подключение твоих шрифтов */
-        @font-face { 
-            font-family: 'CustomFont1'; 
-            src: url('1.ttf') format('truetype'); 
-        }
-        @font-face { 
-            font-family: 'CustomFont2'; 
-            src: url('2.otf') format('opentype'); /* Заменено на .otf */
-        }
-        @font-face { 
-            font-family: 'CustomFont3'; 
-            src: url('3.ttf') format('truetype'); 
+        /* Подключение шрифтов */
+        @font-face { font-family: 'CustomFont1'; src: url('1.ttf') format('truetype'); }
+        @font-face { font-family: 'CustomFont2'; src: url('2.otf') format('opentype'); }
+        @font-face { font-family: 'CustomFont3'; src: url('3.ttf') format('truetype'); }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        body {
-            background-color: white;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
+        /* Общий контейнер, который центрирует всё внутри */
+        .container {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             align-items: center;
-            overflow-x: hidden;
-        }
-
-        /* Шапка с логотипом */
-        header {
+            text-align: center;
             width: 100%;
-            padding: 20px 30px;
-            box-sizing: border-box;
-            text-align: left;
-        }
-
-        #typewriter {
-            font-size: 28px;
-            font-weight: bold;
-            border-right: 3px solid black;
-            padding-right: 4px;
-            white-space: nowrap;
-            display: inline-block;
-            min-height: 1.2em;
-        }
-
-        /* Центр (Картинка 1.png) */
-        main {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
+            max-width: 400px; /* Ограничение по ширине */
             padding: 20px;
-            box-sizing: border-box;
         }
 
-        .central-image {
+        /* Логотип сверху */
+        #typewriter {
+            font-size: 20px; /* Уменьшен размер */
+            font-weight: bold;
+            border-right: 2px solid black;
+            padding-right: 3px;
+            white-space: nowrap;
+            min-height: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        /* Квадратное фото */
+        .photo-wrapper {
+            width: 80%; /* Размер фото относительно контейнера */
+            max-width: 250px;
+            aspect-ratio: 1 / 1; /* Делает фото квадратным */
+            margin-bottom: 25px;
+            overflow: hidden;
+            border-radius: 15px; /* Скругление углов */
+        }
+
+        .photo-wrapper img {
             width: 100%;
-            max-width: 400px;
-            height: auto;
-            border-radius: 20px;
-            object-fit: cover;
+            height: 100%;
+            object-fit: cover; /* Заполняет квадрат без искажений */
         }
 
-        /* Подвал с кнопками */
+        /* Компактные кнопки */
         footer {
-            width: 100%;
-            padding: 30px 10px;
             display: flex;
-            gap: 15px;
+            gap: 10px; /* Расстояние между кнопками */
             flex-wrap: wrap;
             justify-content: center;
-            box-sizing: border-box;
         }
 
         .social-link {
             text-decoration: none;
             color: black;
-            font-size: 20px; /* Увеличил размер для наглядности шрифта */
-            font-family: 'CustomFont1', sans-serif; /* Кнопки теперь на 1.ttf */
-            padding: 10px 15px;
-            transition: opacity 0.3s ease;
-            text-transform: lowercase;
+            font-size: 14px; /* Уменьшенный шрифт */
+            font-family: 'CustomFont1', sans-serif;
+            padding: 5px 8px;
+            transition: opacity 0.2s;
         }
 
         .social-link:hover {
             opacity: 0.5;
         }
 
-        /* Классы для анимации логотипа */
+        /* Классы шрифтов для анимации */
         .f1 { font-family: 'CustomFont1', sans-serif; }
         .f2 { font-family: 'CustomFont2', serif; }
         .f3 { font-family: 'CustomFont3', monospace; }
 
         @keyframes blink { 50% { border-color: transparent; } }
         #typewriter { animation: blink 0.8s step-end infinite; }
-
-        @media (max-width: 480px) {
-            #typewriter { font-size: 22px; }
-            .central-image { max-width: 90%; }
-        }
     </style>
 </head>
 <body>
 
-    <header>
+    <div class="container">
         <div id="typewriter" class="f1"></div>
-    </header>
 
-    <main>
-        <img src="1.png" alt="Profile" class="central-image">
-    </main>
+        <div class="photo-wrapper">
+            <img src="1.png" alt="Profile">
+        </div>
 
-    <footer>
-        <a href="#" class="social-link">inst</a>
-        <a href="#" class="social-link">telegram</a>
-        <a href="#" class="social-link">discord</a>
-        <a href="#" class="social-link">twitch</a>
-        <a href="#" class="social-link">tiktok</a>
-    </footer>
+        <footer>
+            <a href="https://instagram.com/ogdnka" class="social-link">inst</a>
+            <a href="https://t.me/eeleve" class="social-link">tgk: 11</a>
+            <a href="https://discord.gg/dnka" class="social-link">discord</a>
+            <a href="https://twitch.tv/ogdnka" class="social-link">twitch</a>
+            <a href="https://tiktok.com/@dnkanle" class="social-link">tiktok</a>
+        </footer>
+    </div>
 
     <script>
         const text = "dnka";
