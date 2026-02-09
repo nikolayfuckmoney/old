@@ -2,83 +2,109 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dnka profile</title>
     <style>
-        /* Подключение шрифтов */
-        @font-face { font-family: 'CustomFont1'; src: url('1.ttf') format('truetype'); }
-        @font-face { font-family: 'CustomFont2'; src: url('2.ttf') format('truetype'); }
-        @font-face { font-family: 'CustomFont3'; src: url('3.ttf') format('truetype'); }
+        /* Подключение твоих шрифтов */
+        @font-face { 
+            font-family: 'CustomFont1'; 
+            src: url('1.ttf') format('truetype'); 
+        }
+        @font-face { 
+            font-family: 'CustomFont2'; 
+            src: url('2.otf') format('opentype'); /* Заменено на .otf */
+        }
+        @font-face { 
+            font-family: 'CustomFont3'; 
+            src: url('3.ttf') format('truetype'); 
+        }
 
         body {
             background-color: white;
             margin: 0;
             padding: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Распределяет верх, центр и низ */
+            justify-content: space-between;
             align-items: center;
-            font-family: sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Верхняя часть (Аватарка/Лого) */
+        /* Шапка с логотипом */
         header {
             width: 100%;
-            padding: 20px;
+            padding: 20px 30px;
             box-sizing: border-box;
+            text-align: left;
         }
 
         #typewriter {
-            font-size: 24px; /* Уменьшенный размер для лого */
+            font-size: 28px;
             font-weight: bold;
-            border-right: 2px solid black;
+            border-right: 3px solid black;
             padding-right: 4px;
             white-space: nowrap;
             display: inline-block;
+            min-height: 1.2em;
         }
 
-        /* Центр (Фото) */
+        /* Центр (Картинка 1.png) */
         main {
             flex-grow: 1;
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .central-image {
-            max-width: 80%;
-            max-height: 60vh;
-            object-fit: contain;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 20px;
+            object-fit: cover;
         }
 
-        /* Низ (Кнопки-ссылки) */
+        /* Подвал с кнопками */
         footer {
-            padding-bottom: 40px;
+            width: 100%;
+            padding: 30px 10px;
             display: flex;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
             justify-content: center;
+            box-sizing: border-box;
         }
 
         .social-link {
             text-decoration: none;
             color: black;
-            font-size: 16px;
-            font-weight: 500;
-            transition: opacity 0.3s;
+            font-size: 20px; /* Увеличил размер для наглядности шрифта */
+            font-family: 'CustomFont1', sans-serif; /* Кнопки теперь на 1.ttf */
+            padding: 10px 15px;
+            transition: opacity 0.3s ease;
+            text-transform: lowercase;
         }
 
         .social-link:hover {
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
-        /* Классы шрифтов для анимации лого */
+        /* Классы для анимации логотипа */
         .f1 { font-family: 'CustomFont1', sans-serif; }
         .f2 { font-family: 'CustomFont2', serif; }
         .f3 { font-family: 'CustomFont3', monospace; }
 
         @keyframes blink { 50% { border-color: transparent; } }
-        #typewriter { animation: blink 0.7s step-end infinite; }
+        #typewriter { animation: blink 0.8s step-end infinite; }
+
+        @media (max-width: 480px) {
+            #typewriter { font-size: 22px; }
+            .central-image { max-width: 90%; }
+        }
     </style>
 </head>
 <body>
@@ -88,7 +114,7 @@
     </header>
 
     <main>
-        <img src="1.png" alt="photo" class="central-image">
+        <img src="1.png" alt="Profile" class="central-image">
     </main>
 
     <footer>
@@ -109,7 +135,7 @@
         let isDeleting = false;
         let typeSpeed = 150;
 
-        function animateLogo() {
+        function animate() {
             typewriter.className = fontClasses[fontIndex];
             typewriter.textContent = text.substring(0, charIndex);
 
@@ -117,7 +143,7 @@
                 charIndex++;
                 if (charIndex > text.length) {
                     isDeleting = true;
-                    typeSpeed = 1500; // Пауза когда слово напечатано
+                    typeSpeed = 1800; 
                 } else {
                     typeSpeed = 150;
                 }
@@ -127,15 +153,15 @@
                     isDeleting = false;
                     charIndex = 0;
                     fontIndex = (fontIndex + 1) % fontClasses.length;
-                    typeSpeed = 500; // Пауза перед сменой шрифта
+                    typeSpeed = 400;
                 } else {
-                    typeSpeed = 100;
+                    typeSpeed = 80;
                 }
             }
-            setTimeout(animateLogo, typeSpeed);
+            setTimeout(animate, typeSpeed);
         }
 
-        window.onload = animateLogo;
+        window.onload = animate;
     </script>
 </body>
 </html>
