@@ -19,41 +19,39 @@
             position: fixed;
             width: 100%;
             display: flex;
-            flex-direction: column;
-            align-items: center; /* Центрируем всё по горизонтали */
+            justify-content: center;
+            align-items: center; 
             font-family: sans-serif;
             touch-action: none; 
             -webkit-user-select: none;
             user-select: none;
         }
 
-        /* Контейнер для выравнивания логотипа и фото по одной линии */
-        .content-block {
+        /* Основной контейнер */
+        .main-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Выравнивание элементов внутри блока по левому краю */
-            width: 85vw; /* Ширина блока, определяющая размер фото */
-            max-width: 350px; /* Максимальный размер фото */
-            margin-top: auto;
-            margin-bottom: auto;
+            align-items: flex-start; /* Всё по левому краю */
+            width: 90vw; /* Увеличена ширина */
+            max-width: 450px; /* Фото теперь больше */
         }
 
         #typewriter {
-            font-size: 24px;
+            font-size: 26px; /* Чуть крупнее под размер фото */
             font-weight: bold;
             border-right: 2px solid black;
             padding-right: 3px;
             white-space: nowrap;
             min-height: 1.2em;
-            margin-bottom: 20px; /* Отступ от текста до фото */
+            margin-bottom: 20px;
         }
 
-        /* Квадратное фото без скруглений */
         .photo-wrapper {
-            width: 100%; /* Занимает всю ширину контент-блока */
+            width: 100%;
             aspect-ratio: 1 / 1;
             overflow: hidden;
             border-radius: 0;
+            margin-bottom: 20px;
         }
 
         .photo-wrapper img {
@@ -63,30 +61,37 @@
             display: block;
         }
 
-        /* Кнопки внизу */
-        footer {
-            padding-bottom: 50px;
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
+        /* Блок кнопок и почты */
+        .links-container {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Почта слева */
+            gap: 12px;
         }
 
-        .social-link {
+        .social-row {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-start; /* Кнопки слева */
+            flex-wrap: wrap;
+        }
+
+        .social-link, .email-link {
             text-decoration: none;
             color: black;
-            font-size: 14px;
             font-family: 'CustomFont1', sans-serif;
-            padding: 5px 5px;
             transition: opacity 0.2s;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
         }
 
-        .social-link:hover { opacity: 0.5; }
+        .social-link { font-size: 14px; }
+        .email-link { font-size: 14px; margin-top: 5px; }
 
-        /* Шрифты для анимации */
+        .social-link:hover, .email-link:hover { opacity: 0.5; }
+
+        /* Анимация шрифтов лого */
         .f1 { font-family: 'CustomFont1', sans-serif; }
         .f2 { font-family: 'CustomFont2', serif; }
         .f3 { font-family: 'CustomFont3', monospace; }
@@ -97,23 +102,26 @@
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="content-block">
+    <div class="main-container">
         <div id="typewriter" class="f1"></div>
+
         <div class="photo-wrapper">
             <img src="1.png" alt="dnka">
         </div>
+
+        <div class="links-container">
+            <div class="social-row">
+                <a href="https://instagram.com/ogdnka" class="social-link">inst</a>
+                <a href="https://t.me/eeleve" class="social-link">telegram</a>
+                <a id="discord-btn" class="social-link">discord</a>
+                <a href="https://twitch.tv/ogdnka" class="social-link">twitch</a>
+                <a href="https://tiktok.com/@dnkanle" class="social-link">tiktok</a>
+            </div>
+            <a href="mailto:ogdnka@gmail.com" class="email-link">ogdnka@gmail.com</a>
+        </div>
     </div>
 
-    <footer>
-        <a href="https://instagram.com/ССЫЛКА" class="social-link">inst</a>
-        <a href="https://t.me/ССЫЛКА" class="social-link">telegram</a>
-        <a id="discord-btn" class="social-link">discord</a>
-        <a href="https://twitch.tv/ССЫЛКА" class="social-link">twitch</a>
-        <a href="https://tiktok.com/@ССЫЛКА" class="social-link">tiktok</a>
-    </footer>
-
     <script>
-        // Анимация текста
         const text = "dnka";
         const typewriter = document.getElementById('typewriter');
         const fontClasses = ['f1', 'f2', 'f3'];
@@ -134,7 +142,6 @@
             setTimeout(animate, typeSpeed);
         }
 
-        // Копирование Discord
         const discordBtn = document.getElementById('discord-btn');
         discordBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -145,7 +152,7 @@
             });
         });
 
-        // Блокировка зума
+        // Блокировка зума и жестов
         document.addEventListener('touchstart', (e) => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
         let lastTouchEnd = 0;
         document.addEventListener('touchend', (e) => {
